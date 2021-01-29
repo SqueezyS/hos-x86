@@ -27,5 +27,6 @@ int main(){
   kprintf("-------------------------------------------------------------------");
   putstr("\nWelcome to HOS, an x86 operating system written in C from scratch.\n", COLOR_DGY, COLOR_WHT);
   kprintf("-------------------------------------------------------------------\n");
+  kprintf(">");
   return 0;
 }

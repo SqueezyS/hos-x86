@@ -3,6 +3,7 @@
 #include <isr.h>
 #include <irq.h>
 #include <keyboard.h>
+#include <kshell.h>
 
 //shamelessly copied this from bkerndev
 
@@ -77,6 +78,7 @@ void track_input(char c){
           //If user hits enter, we can execute the command
         if(c == '\n'){
           //handle shell support here
+          kshell(input_buffer, i);
           i=0;
         }
         //handle backspace in input string buffer
