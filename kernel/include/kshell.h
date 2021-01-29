@@ -1,6 +1,7 @@
 #ifndef __KSHELL_H
 #define __KSHELL_H
 
+void kshell_init();
 void kshell(char s[], int i);
 void clear_scr();
 void halt();

@@ -4,6 +4,14 @@
 #include <ports.h>
 #include "./lib/string.h"
 
+extern int enable_shell;
+
+void kshell_init(){
+	kprintf("Enabling kernel shell...");
+	enable_shell = 1;
+	putstr("[DONE]\n", COLOR_GRN, COLOR_BLK);
+}
+
 void kshell(char s[], int i){
   if(strcmp(s, "clear")==0){
   	clear_scr();

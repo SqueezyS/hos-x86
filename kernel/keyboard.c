@@ -6,6 +6,7 @@
 #include <kshell.h>
 
 //shamelessly copied this from bkerndev
+int enable_shell=0;
 
 unsigned char ascii_values[128] =
 {
@@ -78,7 +79,8 @@ void track_input(char c){
           //If user hits enter, we can execute the command
         if(c == '\n'){
           //handle shell support here
-          kshell(input_buffer, i);
+          if(enable_shell == 1)
+            kshell(input_buffer, i);
           i=0;
         }
         //handle backspace in input string buffer

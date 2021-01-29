@@ -6,6 +6,7 @@
 #include <irq.h>
 #include <timer.h>
 #include <keyboard.h>
+#include <kshell.h>
 
 int main(){
   set_cursor_pos(0,0);
@@ -27,6 +28,9 @@ int main(){
   kprintf("-------------------------------------------------------------------");
   putstr("\nWelcome to HOS, an x86 operating system written in C from scratch.\n", COLOR_DGY, COLOR_WHT);
   kprintf("-------------------------------------------------------------------\n");
+  
+  kshell_init();
+
   kprintf(">");
   return 0;
 }
