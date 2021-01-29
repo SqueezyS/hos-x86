@@ -2,7 +2,10 @@
 #include <isr.h>
 #include <irq.h>
 #include <timer.h>
+#include <ports.h>
 #include "./lib/string.h"
+
+#define FREQ 100
 
 //The timer has 3 channels, 0,1,2
 //0 is for IRQ0
@@ -12,8 +15,22 @@
 
 //let's keep track of number of ticks elapsed
 int ticks = 0;
+int seconds = 0;
 
-//char *str;
+//set the phase of the timer
+//the value divisor is sent into the PIT to make it divide its
+//frequency by this divisor, so that we get the exact clock frequency
+void timer_phase(int hz){
+    //create the divisor to send into the clock
+    int divisor = 1193180/hz;
+    //send the command byte
+    out_port_byte(0x43, 0x36);
+
+    //now these are the upper lower bytes of the divisor
+    //they need to be split before they are sent.
+    out_port_byte(0x40, divisor & 0xFF);
+    out_port_byte(0x40, divisor >> 8);
+}
 
 //to increase the "ticks" variable, we increment it evrytime the timer fires.
 //the timer PIT is connected to IRQ0, so evrytime it fires, we increment it
@@ -21,17 +38,22 @@ int ticks = 0;
 void timer_handler(struct regs *r){
     //increment number of ticks
     ticks++;
-    /*str = itoa(ticks, str, 10);
-    if(ticks%18 == 0){
-        putstr("One second has passed.\n", COLOR_YEL, COLOR_BLK);
-        kprintf("\nTicks: ");
-        kprintf(str);
-    }*/
+    if(ticks % FREQ == 0){
+        seconds++;
+    }
 }
 
 //let's install timer handler into IRQ0
 void timer_install(){
     kprintf("Installing Timer...");
+    timer_phase(FREQ);
     irq_install_handler(0, timer_handler);
     putstr("[OK]\n", COLOR_GRN, COLOR_BLK);
+}
+
+void timer_wait(int val){
+    unsigned int end = seconds + val;
+    while(seconds < end){
+        asm volatile("" : : : "memory");
+    }
 }
