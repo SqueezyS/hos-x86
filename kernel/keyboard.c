@@ -46,6 +46,10 @@ unsigned char ascii_values[128] =
     0,	/* All other keys are undefined */
 };
 
+//string buffer to keep track of user's entry
+char input_buffer[32];
+int i = 0; //integer to keep track of length
+
 void keyboard_handler(struct regs *r){
     unsigned char scancode;
 
@@ -57,9 +61,39 @@ void keyboard_handler(struct regs *r){
     }
     else{
         char c = ascii_values[scancode];
-        putchar(c, COLOR_WHT, COLOR_BLK);
+        if(i==0 && c=='\b'){
+          //do nothing
+          //this prevents clearing the '>' character on the screen
+        }
+        else{
+          putchar(c, COLOR_WHT, COLOR_BLK);
+          track_input(c);
+        }
     }
 
+}
+
+void track_input(char c){
+          //If user hits enter, we can execute the command
+        if(c == '\n'){
+          //handle shell support here
+          i=0;
+        }
+        //handle backspace in input string buffer
+        else if(c == '\b'){
+          input_buffer[i-1]='\0';
+          i--;
+        }
+        //handle the input buffer if the input is greater than 31
+        else if(i >= 31){
+          input_buffer[0]='\0';
+          i = 0;
+        }
+        //add new input characters from input to string buffer
+        else{
+          input_buffer[i]=c;
+          i++;
+        }
 }
 
 void keyboard_install(){
