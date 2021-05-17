@@ -1,4 +1,4 @@
-### HOS-x86 an x86 operating system written from scratch
+### HOS-x86 an x86 operating system written from scratch (This applies to sqOS, i just don't want to decredit the guy)
 
 ### How to Build?
 
