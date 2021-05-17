@@ -26,7 +26,7 @@ int main(){
   __asm__ __volatile__("sti");
 
   kprintf("-------------------------------------------------------------------");
-  putstr("\nWelcome to HOS, an x86 operating system written in C from scratch.\n", COLOR_DGY, COLOR_WHT);
+  putstr("\nsqOS, the sh*tty OS that will one day kill us all (Also based in HOS, because i can't code for crap :P)\n", COLOR_DGY, COLOR_WHT);
   kprintf("-------------------------------------------------------------------\n");
   
   kshell_init();
