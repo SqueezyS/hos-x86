@@ -1,0 +1,3 @@
+# THIS OS IS BASED OFF OF HOS-x86, I DID NOT CREATE THE ROOTS TO THIS OPERATING SYSTEM
+
+https://github.com/jaychandra6/hos-x86
