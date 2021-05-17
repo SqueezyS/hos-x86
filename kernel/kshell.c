@@ -20,7 +20,7 @@ void kshell(char s[], int i){
   	available_commands();
   }
   else if(strcmp(s, "about")==0){
-  	kprintf("hos-x86 a 32 bit operating system written in C and Assembly\n");
+  	kprintf("sqOS, The OS that will kill us all\n");
   }
   else if(strcmp(s, "hlt")==0){
   	halt();
@@ -66,7 +66,7 @@ void available_commands(){
 
 void unknown_command(char s[]){
 	kprintf(s);
-  	putstr(" : command not found!\n", COLOR_RED, COLOR_BLK);
+  	putstr(" : buddy, that command does not exist!\n", COLOR_RED, COLOR_BLK);
   	putstr("Type ", COLOR_GRY, COLOR_BLK);
   	putstr("\"help\" ", COLOR_YEL, COLOR_BLK);
   	putstr("for the list of available commands.\n", COLOR_GRY, COLOR_BLK);
